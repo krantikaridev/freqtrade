@@ -1,26 +1,30 @@
 # freqtrade
 
-**Main trading system** focused on building a scalable, hybrid sleeve approach using Freqtrade as the core engine.
+Main trading system built on Freqtrade with a focus on scalable, risk-managed strategies.
 
-### Goal
-Create a reliable, lower-maintenance trading system that can eventually become a meaningful source of income.
+### Objective
+Build a reliable trading system that can eventually serve as a meaningful source of income with reasonable operational effort.
 
-### Direction
-- Move away from heavy on-chain micro trading (Nanoclaw will remain as a small tactical sleeve).
-- Focus on higher-edge, more scalable strategies using Freqtrade.
-- Implement a **Hybrid Sleeve** architecture (multiple strategies with different timeframes and risk profiles).
-- Use AI-assisted development (Grok + GitHub Copilot) for faster and cleaner progress.
+### Approach
+- Use **Freqtrade** as the core technical base.
+- Implement a **Hybrid Sleeve** architecture (multiple strategies with different timeframes, edges, and risk profiles).
+- Maintain strong risk management and capital protection as the top priority.
+- Keep `nanoclaw` as a separate small tactical/on-chain sleeve.
 
-### Current Focus
-- Setting up proper project structure and workflow
-- Designing the Hybrid Sleeve framework
-- Building on Freqtrade with strong risk management and automation
+### Development Workflow
+- High-level direction and tasks are defined in this repository.
+- GitHub Copilot is used for implementation.
+- Grok is used for architecture, strategy review, and decision making.
 
-### Workflow
-- High-level tasks and prompts are stored in this repo
-- GitHub Copilot handles implementation
-- Grok is used for architecture, review, and strategy decisions
+### Current Status
+Early stage — setting up project structure, workflow, and high-level design.
+
+### Key Focus Areas
+- Hybrid Sleeve framework design
+- Risk management layer
+- Automation and deployment
+- Long-term maintainability
 
 ---
 
-**Status**: Early stage – setting up foundation
+**Note**: This is no longer treated as a small experiment. The goal is to build something that can scale.
