@@ -1,29 +1,31 @@
-# GitHub Copilot Instructions for freqtrade
+# GitHub Copilot Instructions - freqtrade
 
-You are helping build a professional, scalable trading system using Freqtrade.
+You are assisting in building a professional, income-oriented trading system using Freqtrade.
 
-## Core Principles
-- Prioritize **quality over quantity** of trades.
-- Focus on **risk management** and capital preservation first.
-- Keep code clean, modular, and well-documented.
-- Prefer simpler, maintainable solutions over complex ones.
+## Core Principles (Always Follow)
+- **Risk management first** — Capital preservation is more important than returns.
+- Quality over quantity of trades.
+- Prefer simple, maintainable, and robust solutions.
+- Think long-term (this system should be sustainable).
 
 ## Project Goals
-- Build a **Hybrid Sleeve** trading system.
-- Use Freqtrade as the main technical base.
-- Eventually create a system that can generate meaningful income with reasonable maintenance.
+- Build a **Hybrid Sleeve** trading architecture.
+- Use Freqtrade as the main engine.
+- Create a system that can eventually generate meaningful income.
+- Keep operational complexity reasonable.
 
-## Coding Style
-- Write clear, readable code.
-- Use meaningful variable and function names.
-- Add comments for complex logic.
-- Follow Freqtrade best practices where applicable.
+## Coding Guidelines
+- Write clean, readable, and well-documented code.
+- Use configuration-driven design wherever possible.
+- Add clear comments for important logic.
+- Follow Freqtrade conventions and best practices.
+- Avoid over-engineering.
 
-## When suggesting code:
-- Think about long-term maintainability.
-- Consider how this fits into a multi-sleeve architecture.
-- Prefer configuration-driven approaches over hard-coded values.
+## When Proposing Solutions
+- Consider how the change fits into a multi-sleeve system.
+- Think about monitoring, debugging, and long-term maintenance.
+- Always consider downside risk.
 
-## Important
-- Always consider risk and capital protection.
-- Avoid suggesting high-frequency or overly complex strategies unless explicitly asked.
+## Important Reminders
+- Do not suggest high-risk or overly aggressive strategies unless explicitly requested.
+- Focus on robustness and consistency over maximizing short-term returns.
