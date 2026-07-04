@@ -1,25 +1,23 @@
 # Tasks - freqtrade
 
-## Current Priorities
+## Current High Priority Tasks
 
-### High Priority
-- [ ] Finalize Hybrid Sleeve architecture design
-- [ ] Create base Freqtrade project structure
-- [ ] Define risk management rules for the system
-- [ ] Set up proper backtesting workflow
+### Design & Architecture
+- [ ] Finalize Hybrid Sleeve Design v1 (allocation, rules, risk)
+- [ ] Define risk management rules for the overall system
+- [ ] Create architecture document for Freqtrade implementation
 
-### Medium Priority
+### Workflow & Structure
+- [ ] Set up clean folder structure
+- [ ] Create strong Copilot instructions
+- [ ] Organize prompts folder properly
+
+### Implementation (Phase 2)
+- [ ] Initialize Freqtrade project structure
 - [ ] Implement first sleeve strategy
-- [ ] Create monitoring and logging standards
-- [ ] Build allocation logic between sleeves
-- [ ] Document deployment process
-
-### Low Priority / Future
-- [ ] Performance dashboard
-- [ ] Advanced risk controls (portfolio level)
-- [ ] Automation of strategy deployment
-- [ ] Integration with external data sources
+- [ ] Set up backtesting workflow
 
 ## Notes
-- All tasks should follow the principles defined in `.github/copilot-instructions.md`
-- Focus on quality and maintainability over speed of development
+- All work should follow the principles in `.github/copilot-instructions.md`
+- Focus on quality and maintainability
+- Update this file regularly as priorities change
