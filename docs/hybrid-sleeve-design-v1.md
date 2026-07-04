@@ -1,105 +1,87 @@
 # Hybrid Sleeve Design v1
 
-**Status**: Draft v1  
+**Status**: v1 (Draft)  
 **Date**: July 2026  
-**Goal**: Build a scalable, income-oriented trading system using Freqtrade with multiple sleeves and dynamic risk allocation.
+**Goal**: Build a scalable trading system using Freqtrade with multiple sleeves and dynamic risk allocation.
 
-## 1. Overview
+## 1. Overview & Philosophy
 
-This document defines the initial **Hybrid Sleeve Architecture** for the freqtrade system. The goal is to create a system that can multiply capital reasonably fast while maintaining control and adaptability.
+This document defines the initial architecture for a **Hybrid Sleeve** trading system. The core idea is to run multiple strategies (sleeves) with different characteristics, while dynamically allocating risk between them.
 
-We will start simple, test in real conditions, and iterate.
-
-### Core Principles
-- Quality and risk management over aggressive returns
-- Dynamic allocation between sleeves
-- Leverage strong signals from X (Twitter)
+### Guiding Principles
+- Quality over quantity of trades
+- Dynamic risk allocation (not fixed percentages)
+- Strong focus on high-quality signals from X
+- Start simple → iterate based on real performance
 - Focus on accessible instruments (Crypto Perps + Tokenized Assets)
-- Start with day-to-week timeframe
-- Build → Measure → Improve
+- Day-to-week timeframe initially
 
 ## 2. Sleeve Structure (v1)
 
 We will start with **3 sleeves**:
 
-| Sleeve | Name                    | Style                    | Timeframe     | Primary Edge          | Target Risk Share | Description |
-|--------|-------------------------|--------------------------|---------------|-----------------------|-------------------|-----------|
-| 1      | X-Signal Momentum       | High-conviction Swing    | 1–7 days      | Strong X signals      | 40–60%            | Fastest capital growth using high-quality signals from X |
-| 2      | Trend Following         | Trend Continuation       | 3–21 days     | Technical + Narrative | 25–35%            | More stable returns by riding strong trends |
-| 3      | Tactical / Mean Reversion | Short-term Reversion   | Hours – 3 days| Overextended moves    | 15–25%            | Smaller, more frequent opportunities |
+| Sleeve | Name                    | Style                    | Timeframe     | Primary Edge Source       | Initial Risk Budget | Purpose |
+|--------|-------------------------|--------------------------|---------------|---------------------------|---------------------|--------|
+| 1      | X-Signal Momentum       | High-conviction Swing    | 1–7 days      | Strong signals from X     | 45–55%              | Fast capital growth using high-quality X signals |
+| 2      | Trend Following         | Trend Continuation       | 3–21 days     | Technical + Narrative     | 25–35%              | More stable returns by riding strong trends |
+| 3      | Tactical Mean Reversion | Short-term Reversion     | Hours – 4 days| Overextended moves + X    | 15–25%              | Smaller but frequent opportunities |
 
-### Notes on Sleeves
-- Sleeve 1 will be the most aggressive and signal-driven.
-- Sleeve 2 provides more stability.
+### Notes
+- Sleeve 1 will be the most aggressive and signal-heavy.
+- Sleeve 2 provides stability.
 - Sleeve 3 acts as a tactical buffer.
-- Risk allocation between sleeves will be **dynamic** (not fixed percentages).
+- Risk allocation will be **dynamic** based on recent performance and market conditions.
 
-## 3. Dynamic Risk Allocation (Initial Approach)
+## 3. Dynamic Risk Allocation (v1)
 
-Instead of fixed allocation, we will adjust capital across sleeves based on:
+Instead of fixed allocation, risk will be adjusted based on:
 
 - Recent performance of each sleeve (last 7–14 days)
-- Current market regime (trending vs ranging)
 - Overall portfolio drawdown level
+- Market regime (trending vs choppy)
 
-**Initial Rules (v1)**:
-- No sleeve should exceed 60% of total risk capital at any time.
-- If one sleeve is performing very well, it can temporarily receive more allocation.
-- If overall portfolio is in drawdown, reduce risk across all sleeves.
+**Initial Rules**:
+- No single sleeve should exceed **60%** of total risk at any time.
+- If one sleeve performs exceptionally well, it can temporarily receive higher allocation.
+- During portfolio drawdown, overall risk across all sleeves will be reduced.
 
-This logic will be refined after we have real performance data.
+This logic will be implemented gradually and refined with live data.
 
 ## 4. Signal Sources
 
-### Primary Signal Source: X (Twitter)
-- Strong focus on extracting high-quality signals from X.
-- We will build or integrate tools to monitor and score signals from X.
-- Only high-conviction signals will be used (especially in Sleeve 1).
+**Primary**: X (Twitter) — High-quality, high-conviction signals  
+**Secondary**: Technical indicators + narrative strength  
+**Future**: On-chain data, options flow, etc.
 
-### Secondary Sources
-- Technical analysis
-- On-chain data (where relevant)
-- Narrative strength
+Sleeve 1 will rely most heavily on X signals.
 
 ## 5. Instruments
 
-To maximize accessibility and speed:
-
 - **Primary**: Crypto Perpetual Futures (high liquidity + leverage)
-- **Secondary**: Tokenized Stocks / Assets (easier legal access than traditional US stocks)
-- **Exploratory**: Options (where defined risk and edge exist)
+- **Secondary**: Tokenized stocks/assets
+- **Exploratory**: Options (defined risk setups)
 
-Focus will be on instruments that allow fast position building and exiting.
+Focus will be on instruments that allow fast entry/exit and good liquidity.
 
 ## 6. Risk Management (System Level)
 
-- Overall portfolio risk limits
 - Per-sleeve risk limits
-- Max drawdown thresholds
-- Position sizing rules
-- Kill switches / emergency pause logic
+- Overall portfolio max drawdown rules
+- Position sizing based on volatility and edge
+- Emergency pause / kill switch logic
+- Clear rules for reducing risk during losing streaks
 
-Detailed risk rules will be defined in a separate document.
+Detailed risk rules will be documented separately.
 
 ## 7. Success Metrics for v1
 
-We will consider v1 successful if we achieve:
+- Positive expectancy across the system after 8–12 weeks of live trading
+- Controlled drawdowns (target < 15–20%)
+- Clear data on which sleeves perform well
+- Reasonable operational load
 
-- Positive expectancy across the system over 2–3 months of live trading
-- Controlled drawdowns (target: under 15–20%)
-- Clear understanding of which sleeves work and which need improvement
-- Reasonable operational effort
+## 8. Open Questions
 
-## 8. Open Questions & Future Improvements
-
-- How to best extract and score signals from X?
-- Should we add a 4th sleeve later (e.g., Options or Volatility)?
-- How sophisticated should dynamic allocation become?
-- Integration with on-chain execution (possible future link with Nanoclaw ideas)?
-
----
-
-**Next Actions**
-- Finalize this design after review
-- Start building supporting components in Freqtrade
-- Define detailed rules for each sleeve
+- How to best extract and score high-quality signals from X?
+- Should we add a 4th sleeve later (e.g. Options or Volatility)?
+- How sophisticated should dynamic allocation logic become in v1 vs v2?
