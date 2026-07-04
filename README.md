@@ -1,31 +1,30 @@
 # freqtrade
 
-Main trading system built using **Freqtrade** with a focus on building a scalable **Hybrid Sleeve** architecture.
+Main trading system built on **Freqtrade** using a **Hybrid Sleeve** architecture.
 
 ### Objective
-Create a reliable, maintainable trading system that can eventually generate meaningful income with reasonable operational effort.
+Build a scalable, maintainable trading system that can eventually become a meaningful source of income with reasonable operational effort.
 
-### Key Principles
-- Quality and risk management first
-- Dynamic allocation between sleeves
+### Core Principles
+- Risk management and capital preservation first
+- Quality over quantity of trades
+- Dynamic risk allocation between sleeves
 - Strong focus on high-quality signals (especially from X)
-- Iterative development (build → test → improve)
-- Keep operational complexity reasonable
+- Iterative development and continuous improvement
 
-### Current Focus Areas
-- Hybrid Sleeve framework design
-- Risk management and capital protection
-- Workflow optimization (Grok + GitHub Copilot)
-- Long-term maintainability
+### Current Focus
+- Designing and implementing a Hybrid Sleeve trading system
+- Strong risk management framework
+- Efficient development workflow using GitHub Copilot + Grok
 
 ### Development Workflow
-- High-level direction and tasks are maintained in this repository
-- GitHub Copilot is used for implementation
-- Grok is used for architecture, strategy, and review
+- High-level tasks and architecture are defined in this repository
+- GitHub Copilot handles implementation
+- Grok is used for architecture, strategy review, and decision support
 
 ### Status
-Early stage — setting up foundation and design.
+Early stage — setting up foundation, design, and workflow.
 
 ---
 
-**Note**: This is the primary trading system project. `nanoclaw` is kept as a separate tactical/on-chain experiment.
+**Note**: This is the primary trading system. The `nanoclaw` repository is kept as a separate tactical/on-chain experiment.
