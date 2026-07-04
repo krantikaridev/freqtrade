@@ -1,0 +1,30 @@
+{
+  "mode": "backtesting",
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  },
+  "risk": {
+    "max_portfolio_drawdown": 0.20,
+    "drawdown_warning_threshold": 0.10,
+    "drawdown_emergency_threshold": 0.25,
+    "position_size_pct": 0.02,
+    "risk_per_trade_pct": 0.01,
+    "stop_loss_pct": 0.05,
+    "max_concurrent_positions": 5,
+    "max_risk_per_trade_pct": 0.01
+  },
+  "sleeves": {
+    "count": 3,
+    "default_allocation": {
+      "sleeve_1_momentum": 0.50,
+      "sleeve_2_trend": 0.30,
+      "sleeve_3_reversion": 0.20
+    }
+  },
+  "trading": {
+    "timeframes": ["1h", "4h", "1d"],
+    "instruments": ["BTC/USDT", "ETH/USDT"],
+    "test_mode": false
+  }
+}
