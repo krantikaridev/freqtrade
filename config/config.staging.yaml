@@ -1,0 +1,18 @@
+# Staging Environment Configuration
+# Extends config.base.yaml with staging-specific overrides
+
+dry_run: true
+trading_mode: "futures"
+margin_mode: "isolated"
+
+log_level: "INFO"
+trader_enabled: false
+
+# Staging stake amount (small but realistic)
+stake_amount: "500"
+
+# Enable API server for monitoring
+api_server:
+  enabled: true
+  listen_ip_address: "0.0.0.0"
+  listen_port: 8080

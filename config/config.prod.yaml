@@ -1,0 +1,20 @@
+# Production Environment Configuration
+# IMPORTANT: Keep secrets in environment variables, not in this file
+# Extends config.base.yaml with prod-specific overrides
+
+dry_run: false
+trading_mode: "futures"
+margin_mode: "isolated"
+
+log_level: "INFO"
+trader_enabled: true
+
+# Production stake amount (will be adjusted by risk management)
+stake_amount: "1000"
+
+# API server disabled in production for security
+api_server:
+  enabled: false
+
+# Stricter controls
+max_open_trades: 5

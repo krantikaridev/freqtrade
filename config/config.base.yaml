@@ -1,0 +1,38 @@
+# Hybrid Sleeve Trading System - Base Configuration
+# This is the base template. Environment-specific configs override these values.
+
+# Exchange Configuration
+exchange:
+  name: "binance"
+  key: "${EXCHANGE_API_KEY}"
+  secret: "${EXCHANGE_API_SECRET}"
+  pair_whitelist:
+    - "BTC/USDT:USDT"
+    - "ETH/USDT:USDT"
+  pair_blacklist: []
+
+# Freqtrade Core Settings
+stake_currency: "USDT"
+dry_run: true
+trading_mode: "futures"
+margin_mode: "isolated"
+
+# Timeframes
+timeframe: "1h"
+
+# Risk Management (System Level)
+max_open_trades: 10
+stake_amount: "unlimited"
+min_stake_amount: "10"
+fiat_display_currency: "USD"
+
+# Emergency Controls
+emergency_stop: false
+stop_duration: 0
+
+# Logging
+log_level: "INFO"
+
+# User Data
+user_data_dir: "user_data"
+user_data_format: "json"

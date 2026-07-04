@@ -1,0 +1,29 @@
+# Freqtrade Core
+freqtrade>=2024.6
+
+# Data & Analysis
+pandas>=1.5.0
+numpy>=1.24.0
+ta-lib>=0.4.23
+
+# Configuration
+python-dotenv>=1.0.0
+pyyaml>=6.0
+
+# Utilities
+requests>=2.31.0
+aiohttp>=3.8.0
+
+# Logging & Monitoring
+python-json-logger>=2.0.0
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+
+# Code Quality
+black>=23.0.0
+flake8>=6.0.0
+isort>=5.12.0
+mypy>=1.4.0
