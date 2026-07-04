@@ -1,30 +1,31 @@
 # freqtrade
 
-Main trading system built on Freqtrade with a focus on scalable, risk-managed strategies.
+Main trading system built using **Freqtrade** with a focus on building a scalable **Hybrid Sleeve** architecture.
 
 ### Objective
-Build a reliable trading system that can eventually serve as a meaningful source of income with reasonable operational effort.
+Create a reliable, maintainable trading system that can eventually generate meaningful income with reasonable operational effort.
 
-### Approach
-- Use **Freqtrade** as the core technical base.
-- Implement a **Hybrid Sleeve** architecture (multiple strategies with different timeframes, edges, and risk profiles).
-- Maintain strong risk management and capital protection as the top priority.
-- Keep `nanoclaw` as a separate small tactical/on-chain sleeve.
+### Key Principles
+- Quality and risk management first
+- Dynamic allocation between sleeves
+- Strong focus on high-quality signals (especially from X)
+- Iterative development (build → test → improve)
+- Keep operational complexity reasonable
+
+### Current Focus Areas
+- Hybrid Sleeve framework design
+- Risk management and capital protection
+- Workflow optimization (Grok + GitHub Copilot)
+- Long-term maintainability
 
 ### Development Workflow
-- High-level direction and tasks are defined in this repository.
-- GitHub Copilot is used for implementation.
-- Grok is used for architecture, strategy review, and decision making.
+- High-level direction and tasks are maintained in this repository
+- GitHub Copilot is used for implementation
+- Grok is used for architecture, strategy, and review
 
-### Current Status
-Early stage — setting up project structure, workflow, and high-level design.
-
-### Key Focus Areas
-- Hybrid Sleeve framework design
-- Risk management layer
-- Automation and deployment
-- Long-term maintainability
+### Status
+Early stage — setting up foundation and design.
 
 ---
 
-**Note**: This is no longer treated as a small experiment. The goal is to build something that can scale.
+**Note**: This is the primary trading system project. `nanoclaw` is kept as a separate tactical/on-chain experiment.
