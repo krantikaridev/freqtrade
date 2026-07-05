@@ -10,6 +10,7 @@ from src.risk.base import (
     RiskManager, PositionSizer, DrawdownManager,
     PositionSizeParams, DrawdownState, TradingMode
 )
+from src.risk.quality_gate import TradeQualityGate, PlayBudget, PlayBudgetConfig
 
 logger = logging.getLogger(__name__)
 
@@ -20,6 +21,10 @@ class SimpleRiskManager(RiskManager):
     
     Provides basic position control based on fixed risk per trade
     and drawdown thresholds. Foundation for more complex logic.
+    
+    Now includes:
+    - Quality gate for trade filtering
+    - Play budget tracking to prevent over-trading
     """
     
     def __init__(self, mode: TradingMode, config: dict):
@@ -28,13 +33,33 @@ class SimpleRiskManager(RiskManager):
         
         Args:
             mode: Trading mode
-            config: Risk configuration
+            config: Risk configuration including quality_gate and play_budget settings
         """
         super().__init__(mode, config)
         self.max_positions = config.get("max_concurrent_positions", 5)
         self.max_risk_pct = config.get("max_risk_per_trade_pct", 0.01)
         self.current_positions = 0
         self._risk_budget = 1.0
+        
+        # Initialize quality gate and play budget
+        quality_gate_config = config.get("quality_gate", {})
+        play_budget_config_dict = config.get("play_budget", {})
+        
+        # Create play budget instance
+        play_budget_cfg = PlayBudgetConfig(
+            max_trades_per_day=play_budget_config_dict.get("max_trades_per_day", 10),
+            max_trades_per_session=play_budget_config_dict.get("max_trades_per_session"),
+            reset_mode=play_budget_config_dict.get("reset_mode", "daily")
+        )
+        self.play_budget = PlayBudget(play_budget_cfg)
+        
+        # Create quality gate instance
+        self.quality_gate = TradeQualityGate(quality_gate_config, self.play_budget)
+        
+        logger.info(
+            f"SimpleRiskManager initialized with quality gate and play budget. "
+            f"Max positions: {self.max_positions}, Max risk: {self.max_risk_pct*100}%"
+        )
     
     def check_position_allowed(self, symbol: str, size: float) -> bool:
         """
@@ -43,6 +68,7 @@ class SimpleRiskManager(RiskManager):
         Constraints:
         - Not exceeding max concurrent positions
         - Not exceeding available risk budget
+        - (Quality gate is checked separately via check_trade_quality)
         """
         if self.current_positions >= self.max_positions:
             logger.warning(

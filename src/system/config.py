@@ -123,7 +123,23 @@ class ConfigLoader:
             "risk": {
                 "max_portfolio_drawdown": 0.20,
                 "position_size_pct": 0.02,
-                "stop_loss_pct": 0.05
+                "stop_loss_pct": 0.05,
+                "max_concurrent_positions": 5,
+                "max_risk_per_trade_pct": 0.01,
+                # Quality gate settings
+                "quality_gate": {
+                    "enabled": True,
+                    "min_signal_strength": 0.60,
+                    "min_edge_pct": 0.005,  # 0.5%
+                    "drawdown_disable_trading": True,
+                    "drawdown_threshold": 0.15
+                },
+                # Play budget settings
+                "play_budget": {
+                    "max_trades_per_day": 10,
+                    "max_trades_per_session": None,
+                    "reset_mode": "daily"
+                }
             },
             "sleeves": {
                 "count": 3,

@@ -13,6 +13,7 @@ from typing import Optional, Dict, Any
 from src.system.config import ConfigLoader
 from src.risk.base import RiskManager, TradingMode
 from src.risk.simple import SimpleRiskManager
+from src.risk.quality_gate import TradeQualityGate, QualityCheckResult
 
 # Configure logging
 logging.basicConfig(
@@ -29,14 +30,25 @@ class SystemManager:
     Responsibilities:
     - System initialization and startup
     - Configuration loading and validation
-    - Risk management setup
+    - Risk management setup (including quality gates)
     - Sleeve coordination (foundation for future)
     - System state monitoring
+    - Trade quality checking
     
     Usage:
         manager = SystemManager(mode=TradingMode.BACKTESTING)
         await manager.initialize()
         # System is ready for trading
+        
+        # Check trade quality before execution
+        quality_result = manager.check_trade_quality(
+            symbol="BTC/USD",
+            signal_strength=0.75,
+            edge_estimate=0.02
+        )
+        if quality_result.allowed:
+            # Execute trade
+            pass
     """
     
     def __init__(
@@ -61,12 +73,14 @@ class SystemManager:
         self._config: Optional[Dict[str, Any]] = None
         self._config_loader: Optional[ConfigLoader] = None
         self._risk_manager: Optional[RiskManager] = None
+        self._quality_gate: Optional[TradeQualityGate] = None
         
         # State tracking
         self._initialized = False
         self._running = False
         self._peak_equity = 0.0
         self._current_equity = 0.0
+        self._current_drawdown = 0.0
         
         logger.info(f"SystemManager created (mode={mode.value})")
     
@@ -77,7 +91,7 @@ class SystemManager:
         Execution order:
         1. Load configuration
         2. Validate configuration
-        3. Initialize risk management
+        3. Initialize risk management (including quality gate)
         4. Set system to ready state
         
         Returns:
@@ -96,7 +110,12 @@ class SystemManager:
                 logger.error("Risk management initialization failed")
                 return False
             
-            # Step 3: System ready
+            # Step 3: Extract quality gate from risk manager
+            if hasattr(self._risk_manager, 'quality_gate'):
+                self._quality_gate = self._risk_manager.quality_gate
+                logger.info("Quality gate attached from risk manager")
+            
+            # Step 4: System ready
             self._initialized = True
             logger.info("System initialization completed successfully")
             return True
@@ -141,14 +160,34 @@ class SystemManager:
         Returns:
             Dictionary with status information
         """
-        return {
+        status = {
             "initialized": self._initialized,
             "running": self._running,
             "mode": self.mode.value,
             "risk_manager": type(self._risk_manager).__name__ if self._risk_manager else None,
             "peak_equity": self._peak_equity,
             "current_equity": self._current_equity,
+            "current_drawdown": self._current_drawdown,
         }
+        
+        # Add quality gate status
+        if self._quality_gate:
+            status["quality_gate_enabled"] = self._quality_gate.enabled
+            status["quality_gate"] = {
+                "min_signal_strength": self._quality_gate.min_signal_strength,
+                "min_edge_pct": self._quality_gate.min_edge_pct,
+            }
+        
+        # Add play budget status
+        if self._risk_manager and hasattr(self._risk_manager, 'play_budget'):
+            budget = self._risk_manager.play_budget
+            status["play_budget"] = {
+                "max_trades_per_day": budget.config.max_trades_per_day,
+                "trades_today": budget.trades_today,
+                "remaining_budget": budget.get_trades_remaining()
+            }
+        
+        return status
     
     def get_risk_manager(self) -> Optional[RiskManager]:
         """
@@ -158,6 +197,76 @@ class SystemManager:
             RiskManager instance or None if not initialized
         """
         return self._risk_manager
+    
+    def check_trade_quality(
+        self,
+        symbol: str,
+        signal_strength: float,
+        edge_estimate: float,
+        system_enabled: bool = True
+    ) -> QualityCheckResult:
+        """
+        Check if a trade meets quality requirements.
+        
+        This is the main entry point for trade quality decisions.
+        Should be called BEFORE attempting to open any position.
+        
+        Args:
+            symbol: Trading pair (e.g., "BTC/USD")
+            signal_strength: Signal strength (0-1 scale)
+            edge_estimate: Expected edge as decimal (0.01 = 1%)
+            system_enabled: Whether system is enabled for trading
+            
+        Returns:
+            QualityCheckResult with decision and reasons
+            
+        Example:
+            result = manager.check_trade_quality("BTC/USD", 0.75, 0.02)
+            if result.allowed:
+                logger.info(f"Trade approved: {result}")
+                # Execute trade and record it
+                manager.record_trade_execution("BTC/USD")
+            else:
+                logger.debug(f"Trade rejected: {result}")
+        """
+        if not self._initialized:
+            logger.error("Cannot check quality: System not initialized")
+            from src.risk.quality_gate import QualityCheckResult, QualityRejectionReason
+            return QualityCheckResult(
+                allowed=False,
+                reason=QualityRejectionReason.SYSTEM_DISABLED,
+                signal_strength=signal_strength,
+                edge_estimate=edge_estimate
+            )
+        
+        if not self._quality_gate:
+            logger.warning("Quality gate not available, allowing trade")
+            from src.risk.quality_gate import QualityCheckResult, QualityRejectionReason
+            return QualityCheckResult(
+                allowed=True,
+                reason=QualityRejectionReason.ACCEPTED,
+                signal_strength=signal_strength,
+                edge_estimate=edge_estimate
+            )
+        
+        return self._quality_gate.check_trade_quality(
+            symbol=symbol,
+            signal_strength=signal_strength,
+            edge_estimate=edge_estimate,
+            drawdown_pct=self._current_drawdown,
+            system_enabled=system_enabled and self._running
+        )
+    
+    def record_trade_execution(self, symbol: str) -> None:
+        """
+        Record that a trade was executed.
+        Should be called after trade is successfully opened.
+        
+        Args:
+            symbol: Trading pair symbol
+        """
+        if self._risk_manager and hasattr(self._risk_manager, 'play_budget'):
+            self._risk_manager.play_budget.record_trade(symbol)
     
     def update_equity(self, current_equity: float, peak_equity: Optional[float] = None) -> None:
         """
@@ -172,6 +281,13 @@ class SystemManager:
         self._current_equity = current_equity
         if peak_equity is not None:
             self._peak_equity = max(self._peak_equity, peak_equity)
+        else:
+            if self._peak_equity == 0:
+                self._peak_equity = current_equity
+        
+        # Calculate current drawdown
+        if self._peak_equity > 0:
+            self._current_drawdown = (self._peak_equity - self._current_equity) / self._peak_equity
         
         if self._risk_manager:
             self._risk_manager.update_state(self._current_equity, self._peak_equity)
@@ -210,8 +326,8 @@ class SystemManager:
         """
         Initialize risk management components.
         
-        Currently uses SimpleRiskManager. Can be extended to use
-        more sophisticated implementations.
+        Currently uses SimpleRiskManager with quality gate and play budget.
+        Can be extended to use more sophisticated implementations.
         
         Returns:
             True if successful, False otherwise
@@ -221,8 +337,7 @@ class SystemManager:
             
             risk_config = self._config.get("risk", {})
             
-            # For now, use SimpleRiskManager
-            # In future, this could be factory-based or configurable
+            # Use SimpleRiskManager (includes quality gate and play budget)
             self._risk_manager = SimpleRiskManager(self.mode, risk_config)
             
             logger.info(f"Risk manager initialized: {type(self._risk_manager).__name__}")
