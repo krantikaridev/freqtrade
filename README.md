@@ -21,7 +21,12 @@ NanoClaw (`krantikaridev/nanoclaw`) is parked. It already proved flat/~0 PnL is 
 - `strategies/TrendFollowing.py` — Sleeve 2 trend strategy (4h)
 - `docker-compose.yml` — one-command dry-run on a Linux VM
 - `docs/hybrid-sleeve-design-v1.md` — full hybrid design (3 sleeves; only Sleeve 2 implemented now)
+- `signals/` — Quantral-led watchlist + stuck notes (gather-info, not auto-trade)
 - `prompts/` — roadmap + tasks for agents
+
+## Signals
+
+Signal sources and persona notes for the Hybrid Sleeve live in [`signals/`](./signals/). Start with [`signals/WATCHLIST.md`](./signals/WATCHLIST.md). Primary track-record board: [Quantral](https://quantral.com/leaderboard).
 
 ## Quick start (dry-run)
 
