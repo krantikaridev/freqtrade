@@ -1,0 +1,17 @@
+{
+  "version": 1.1,
+  "updated_at": "2026-09-02T16:30:00+00:00",
+  "account_primary": "i36do",
+  "tracker": {
+    "primary": {
+      "name": "Quantral",
+      "url": "https://quantral.com/leaderboard",
+      "note": "Serenity (@aleabitoreddit) #2 lifetime; @citrini #1",
+      "seed_handles": ["citrini", "aleabitoreddit", "jukan05", "crux_capital_", "michaelsikand", "TheValueist", "CKCapitalxx", "Kaizen_Investor", "KawzInvests", "babyfolio"]
+    },
+    "secondary": ["SignalSnitch", "TraderBro", "ShadowAlpha", "Tradestie", "SinceThisCall", "finfluencers.trade", "followserenity.com"]
+  },
+  "from_i36do_feed_finance": ["TechCharts", "mind1nvestor", "anandragn", "VJNCapital", "NoLimitGains", "michaelsikand", "Nostre_damus", "TFMetals", "GavMcCracken", "Polymarket"],
+  "bookmark_ideas_active": ["8/21 EMA pullback", "TraderDev strategies", "TradingView MCP later", "sell-puts later", "BTC cycle regime"],
+  "pending": ["Grok Task email delivery confirm", "X login for full Following", "Chrome reading list"]
+}
