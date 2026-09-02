@@ -5,35 +5,26 @@ Build a scalable Hybrid Sleeve trading system on Freqtrade that can serve as a m
 
 ## Phases
 
-### Phase 1: Foundation (Current)
-- Set up clean project structure and development workflow
-- Finalize Hybrid Sleeve architecture (v1)
-- Define risk management framework
-- Establish prompts + Copilot + Grok workflow
+### Phase 1: Foundation — done enough
+- Project structure, Hybrid Sleeve design v1, agent workflow
 
-### Phase 2: Core Implementation
-- Set up base Freqtrade project
-- Implement first sleeve(s)
-- Build backtesting and validation process
-- Add logging, monitoring, and basic risk controls
+### Phase 2: Core Implementation — in progress
+- [x] Base dry-run Freqtrade config (Binance USDT-M)
+- [x] First sleeve: Trend Following
+- [ ] Oracle Always Free deploy + soak
+- [ ] Backtest + dry-run evidence vs NanoClaw ~0 PnL baseline
 
 ### Phase 3: Hybrid Sleeves
-- Implement multiple sleeves with different characteristics
-- Build dynamic allocation logic between sleeves
-- Add rebalancing and risk adjustment rules
+- X-Signal Momentum, Mean Reversion, dynamic allocation
 
 ### Phase 4: Automation & Operations
-- Deployment and automation
-- Monitoring, alerting, and reporting
-- Performance tracking system
+- Monitoring, alerting, reporting on Oracle
 
 ### Phase 5: Optimization & Scaling
-- Strategy improvement based on live performance
-- Portfolio-level risk management
-- Gradual capital scaling
+- Live tiny capital → gradual scale if expectancy holds
 
 ## Success Criteria
-- Consistent positive expectancy
+- Better than NanoClaw flat/~0 PnL with measurable evidence
 - Controlled drawdowns
-- Maintainable and understandable codebase
+- Maintainable codebase
 - Clear path to scale
