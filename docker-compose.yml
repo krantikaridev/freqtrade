@@ -5,10 +5,9 @@ services:
     container_name: freqtrade-trend-dryrun
     volumes:
       - "./:/freqtrade/user_data"
-    # Dry-run trade mode. No API keys required for public Binance market data.
     command: >
       trade
-      --logfile /freqtrade/user_data/logs/freqtrade.log
-      --db-url sqlite:////freqtrade/user_data/tradesv3.dryrun.sqlite
-      --config /freqtrade/user_data/config/config.dryrun.json
-      --strategy TrendFollowing
+      --logfile /freqtrade/user_data/logs/freqtrade-maxdd.log
+      --db-url sqlite:////freqtrade/user_data/tradesv3.dryrun.maxdd.sqlite
+      --config /freqtrade/user_data/config/config.dryrun.micro.nosol.json
+      --strategy TrendFollowingMaxDD

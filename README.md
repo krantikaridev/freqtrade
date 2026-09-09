@@ -1,5 +1,10 @@
 # freqtrade — Hybrid Sleeve (MVP)
 
+## Live dry-run champ (2026-09-09)
+
+Still **dry-run only**. Current champ on the Oracle host is `TrendFollowingMaxDD` (long-only, BTC/ETH/BNB, max 1 trade, lev 1, $250 wallet). Backtest with protections: **+9.29% / PF 1.27 / DD 9.75%**. Scoreboard: [`docs/ITERATE_SCOREBOARD.md`](docs/ITERATE_SCOREBOARD.md). Config: `config/config.dryrun.micro.nosol.json`.
+
+
 Main trading system built on **Freqtrade** using a **Hybrid Sleeve** architecture.
 
 ## Current MVP (locked Sept 2026)
