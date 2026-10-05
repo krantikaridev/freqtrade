@@ -14,8 +14,9 @@ Main trading system built on **Freqtrade** using a **Hybrid Sleeve** architectur
 | Host | Oracle Cloud Always Free |
 | Mode | **Dry-run only** (no live orders yet) |
 | Exchange | Binance USDT-M perpetual futures |
-| First sleeve | **Trend Following** (Sleeve 2) |
-| Pairs | BTC, ETH, SOL, BNB (`*/USDT:USDT`) |
+| First sleeve | **Trend Following** (Sleeve 2) — live champ `TrendFollowingMaxDD` (was the `TrendFollowing` scaffold) |
+| Pairs | BTC, ETH, BNB (`*/USDT:USDT`) — SOL dropped in the champ |
+| Positions | `max_open_trades`: 1 · lev 1 · $250 wallet · 4h |
 | Success bar | Beat NanoClaw’s ~0 PnL with evidence before going live |
 
 NanoClaw (`krantikaridev/nanoclaw`) is parked. It already proved flat/~0 PnL is possible.
