@@ -3,6 +3,17 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+# freqtrade run artifacts (regenerable; sweep doc stays in docs/)
+backtest_results/
+data/
+hyperopt.lock
+hyperopt_results/
+receipts/
+sweep/
+*.sqlite
+*.log
+logs/
+
 # C extensions
 *.so
 
