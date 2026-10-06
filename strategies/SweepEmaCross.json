@@ -1,0 +1,29 @@
+{
+  "strategy_name": "SweepEmaCross",
+  "params": {
+    "roi": {
+      "0": 0.1,
+      "48": 0.05,
+      "96": 0.02
+    },
+    "stoploss": {
+      "stoploss": -0.06
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.02,
+      "trailing_stop_positive_offset": 0.04,
+      "trailing_only_offset_is_reached": true
+    },
+    "max_open_trades": {
+      "max_open_trades": 1
+    },
+    "buy": {
+      "adx_threshold": 15.0,
+      "fast_ema": 24.0,
+      "slow_ema": 78.0
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2026-10-06 16:27:37.303702+00:00"
+}
