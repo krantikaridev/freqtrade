@@ -1,0 +1,30 @@
+{
+  "strategy_name": "TrendFollowingMaxDDHyp",
+  "params": {
+    "roi": {
+      "0": 0.12,
+      "24": 0.06,
+      "72": 0.03,
+      "168": 0.01
+    },
+    "stoploss": {
+      "stoploss": -0.06
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.02,
+      "trailing_stop_positive_offset": 0.04,
+      "trailing_only_offset_is_reached": true
+    },
+    "max_open_trades": {
+      "max_open_trades": 1
+    },
+    "buy": {
+      "buy_adx": 22,
+      "buy_ema_fast": 16,
+      "buy_ema_slow": 72
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2026-10-06 11:08:29.569465+00:00"
+}

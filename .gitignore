@@ -216,3 +216,13 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# local market data / backtest artifacts (sweep 6 Oct)
+data/
+backtest_results/
+sweep/
+logs/
+*.sqlite
+hyperopt_results/
+hyperopt.lock
+__pycache__/

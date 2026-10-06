@@ -2,7 +2,9 @@
 
 ## Live dry-run champ (2026-09-09)
 
-Still **dry-run only**. Current champ on the Oracle host is `TrendFollowingMaxDD` (long-only, BTC/ETH/BNB, max 1 trade, lev 1, $250 wallet). Backtest with protections: **+9.29% / PF 1.27 / DD 9.75%**. Scoreboard: [`docs/ITERATE_SCOREBOARD.md`](docs/ITERATE_SCOREBOARD.md). Config: `config/config.dryrun.micro.nosol.json`.
+Still **dry-run only**. Current champ on the Oracle host is `TrendFollowingMaxDD` (long-only, BTC/ETH/BNB, max 1 trade, lev 1, $250 wallet). Backtest with protections: **+9.29% / PF 1.27 / DD 9.75%**. Scoreboard: [`docs/ITERATE_SCOREBOARD.md`](docs/ITERATE_SCOREBOARD.md).
+
+6 Oct parallel sweep (champ + 3 stock patterns x 1h/4h, 180d, same $250/fee rules): 1h beat 4h for every arm, champ 1h **+6.41% / PF 1.44 / DD 4.64%**, no arm beat buy-and-hold (+25%), 20-epoch hyperopt found no improvement. Table: [`docs/SWEEP-2026-10-06.md`](docs/SWEEP-2026-10-06.md). Config: `config/config.dryrun.micro.nosol.json`.
 
 
 Main trading system built on **Freqtrade** using a **Hybrid Sleeve** architecture.
