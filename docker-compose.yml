@@ -11,3 +11,15 @@ services:
       --db-url sqlite:////freqtrade/user_data/tradesv3.dryrun.maxdd.sqlite
       --config /freqtrade/user_data/config/config.dryrun.micro.nosol.json
       --strategy TrendFollowingMaxDD
+  freqtrade-sweep-ema:
+    image: freqtradeorg/freqtrade:stable
+    restart: unless-stopped
+    container_name: freqtrade-sweep-ema-dryrun
+    volumes:
+      - "./:/freqtrade/user_data"
+    command: >
+      trade
+      --logfile /freqtrade/user_data/logs/freqtrade-sweepema.log
+      --db-url sqlite:////freqtrade/user_data/tradesv3.dryrun.sweepema.sqlite
+      --config /freqtrade/user_data/config/config.dryrun.sweepema.nosol.json
+      --strategy SweepEmaCross

@@ -216,3 +216,15 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Dry-run paper-bot runtime artifacts (docker-compose mounts the repo root as user_data).
+# Paper-trade DBs, downloaded candles and logs are data, not source — never commit them.
+/tradesv3*.sqlite
+/tradesv3*.sqlite-shm
+/tradesv3*.sqlite-wal
+/logs/
+/data/
+/backtest_results/
+/hyperopt_results/
+/hyperopt.lock
+/receipts/
